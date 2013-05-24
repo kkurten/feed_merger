@@ -5,8 +5,7 @@ import java.util.List;
 import com.sun.syndication.feed.rss.Item;
 
 /**
- * Service for RSS feeds. Fetches all {@link Item}s from multiple RSS feeds and merges them into a single {@link List}.
- * The list is cached for 15 minutes.
+ * Service for RSS feeds.
  * 
  * @author kkurten
  * 
@@ -14,7 +13,8 @@ import com.sun.syndication.feed.rss.Item;
 public interface FeedService {
 
     /**
-     * Connects to all feeds that are configured in feed.properties, merges them and sorts feed items by date.
+     * Fetches all {@link Item}s from multiple RSS feeds and merges them into a single {@link List}. Items are sorted by
+     * published date. The list is cached for 15 minutes.
      * 
      * @return a merged and sorted list of feed items
      */

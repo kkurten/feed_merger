@@ -5,7 +5,7 @@ import java.util.Comparator;
 import com.sun.syndication.feed.rss.Item;
 
 /**
- * Compares {@link Item} objects in reverse order.
+ * Compares {@link Item} objects by published date in reverse order.
  * 
  * @author kkurten
  * 

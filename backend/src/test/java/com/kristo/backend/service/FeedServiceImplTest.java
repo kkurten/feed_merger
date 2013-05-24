@@ -42,9 +42,9 @@ public class FeedServiceImplTest {
     private Cache<String, List<Item>> feedItemCache;
     @InjectMocks
     private FeedServiceImpl feedService;
-    private SyndEntry newestSyndEntry;
-    private SyndEntry secondNewestSyndEntry;
-    private SyndEntry oldestSyndEntry;
+    private SyndEntry firstSyndEntry;
+    private SyndEntry secondSyndEntry;
+    private SyndEntry thirdSyndEntry;
 
     @Before
     public void init() throws Exception {
@@ -61,24 +61,24 @@ public class FeedServiceImplTest {
     }
 
     private void createSingleSyndEntryMockForEachFeed() {
-        createSyndEntries();
-        when(feedReader.readSyndEntriesFromFeed(eq(URL1))).thenReturn(createSyndEntriesForFeed(newestSyndEntry));
-        when(feedReader.readSyndEntriesFromFeed(eq(URL2))).thenReturn(createSyndEntriesForFeed(secondNewestSyndEntry));
-        when(feedReader.readSyndEntriesFromFeed(eq(URL3))).thenReturn(createSyndEntriesForFeed(oldestSyndEntry));
+        createSyndEntriesWithDifferentPublishedDates();
+        when(feedReader.readSyndEntriesFromFeed(eq(URL1))).thenReturn(createSyndEntriesForFeed(firstSyndEntry));
+        when(feedReader.readSyndEntriesFromFeed(eq(URL2))).thenReturn(createSyndEntriesForFeed(secondSyndEntry));
+        when(feedReader.readSyndEntriesFromFeed(eq(URL3))).thenReturn(createSyndEntriesForFeed(thirdSyndEntry));
     }
 
-    private void createSyndEntries() {
-        newestSyndEntry = new SyndEntryImpl();
-        newestSyndEntry.setDescription(new SyndContentImpl());
-        newestSyndEntry.setPublishedDate(new Date(3L));
+    private void createSyndEntriesWithDifferentPublishedDates() {
+        firstSyndEntry = new SyndEntryImpl();
+        firstSyndEntry.setDescription(new SyndContentImpl());
+        firstSyndEntry.setPublishedDate(new Date(3L));
 
-        secondNewestSyndEntry = new SyndEntryImpl();
-        secondNewestSyndEntry.setDescription(new SyndContentImpl());
-        secondNewestSyndEntry.setPublishedDate(new Date(2L));
+        secondSyndEntry = new SyndEntryImpl();
+        secondSyndEntry.setDescription(new SyndContentImpl());
+        secondSyndEntry.setPublishedDate(new Date(2L));
 
-        oldestSyndEntry = new SyndEntryImpl();
-        oldestSyndEntry.setDescription(new SyndContentImpl());
-        oldestSyndEntry.setPublishedDate(new Date(1L));
+        thirdSyndEntry = new SyndEntryImpl();
+        thirdSyndEntry.setDescription(new SyndContentImpl());
+        thirdSyndEntry.setPublishedDate(new Date(1L));
     }
 
     private List<SyndEntry> createSyndEntriesForFeed(SyndEntry syndEntry) {
@@ -102,14 +102,9 @@ public class FeedServiceImplTest {
     }
 
     private void assertItemWereReturnedInCorrectOrder(List<Item> itemResults) {
-        assertEquals(newestSyndEntry.getPublishedDate(), itemResults.get(0).getPubDate());
-        assertEquals(secondNewestSyndEntry.getPublishedDate(), itemResults.get(1).getPubDate());
-        assertEquals(oldestSyndEntry.getPublishedDate(), itemResults.get(2).getPubDate());
-    }
-
-    @Test
-    public void foo() throws Exception {
-        feedService.getMergedFeed();
+        assertEquals(firstSyndEntry.getPublishedDate(), itemResults.get(0).getPubDate());
+        assertEquals(secondSyndEntry.getPublishedDate(), itemResults.get(1).getPubDate());
+        assertEquals(thirdSyndEntry.getPublishedDate(), itemResults.get(2).getPubDate());
     }
 
 }
