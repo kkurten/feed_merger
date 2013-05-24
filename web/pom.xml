@@ -11,7 +11,6 @@
 	<groupId>com.kristo.web</groupId>
 	<artifactId>web</artifactId>
 	<packaging>war</packaging>
-	<name>Feed Merger</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
