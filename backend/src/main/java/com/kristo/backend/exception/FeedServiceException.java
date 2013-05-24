@@ -8,7 +8,7 @@ package com.kristo.backend.exception;
  * 
  */
 public class FeedServiceException extends RuntimeException {
-    private static final long serialVersionUID = -4903728373671720289L;
+    private static final long serialVersionUID = 1728934947960010382L;
 
     public FeedServiceException(Throwable cause) {
         super(cause);
